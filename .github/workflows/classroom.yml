@@ -1,0 +1,28 @@
+name: Classroom Submission(Report)
+
+on:
+  - push
+  - workflow_dispatch
+  - repository_dispatch
+
+permissions:
+  checks: write
+  actions: read
+  contents: read
+
+jobs:
+  mark-submission:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Mark submission
+        run: |
+          echo "GitHub Classroom submission detected."
+          echo "Repository : $GITHUB_REPOSITORY"
+          echo "Actor      : $GITHUB_ACTOR"
+          echo "Commit SHA : $GITHUB_SHA"
+          echo "Event      : $GITHUB_EVENT_NAME"
